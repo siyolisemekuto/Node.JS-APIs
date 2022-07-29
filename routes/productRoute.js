@@ -1,6 +1,8 @@
 const express = require("express");
 const router = express.Router();
 const con = require("../lib/db_connection");
+const middleware = require("../middleware/auth");
+
 
 router.get("/", (req, res) => {
     try {
@@ -15,8 +17,9 @@ router.get("/", (req, res) => {
 });
 
 //add a product
-router.post('/', (req, res)=>{
+router.post('/', middleware, (req, res)=>{
     const {sku,name,price,weight,descriptions,thumbnail,image,category,create_date,stock}= req.body
+    if (req.user.user_type==="admin")
 
     try{
         con.query(
@@ -28,7 +31,9 @@ router.post('/', (req, res)=>{
     );
     } catch(error){
         console.log(error);
-    };
+    }else{
+        res.send("Access denied!")
+    }
 }); 
 
 //find single product
@@ -49,10 +54,10 @@ router.get('/:id', (req, res)=>{
 
 
 //edit, update
-router.put('/:id', (req, res)=>{
+router.put('/:id', middleware, (req, res)=>{
     const {sku,name,price,weight,descriptions,thumbnail,image,category,create_date,stock}= req.body
-
-    try{
+    if (req.user.user_type==="admin")
+   {try{
         con.query(
         `UPDATE products SET sku="${sku}",name="${name}",price="${price}",weight="${weight}",descriptions="${descriptions}",thumbnail="${thumbnail}",image="${image}",category="${category}",create_date="${create_date}",stock="${stock}" WHERE product_id="${req.params.id}"`, 
         (err, result) => {
@@ -62,16 +67,19 @@ router.put('/:id', (req, res)=>{
     );
     } catch(error){
         console.log(error);
-    };
+    }
+    }else{
+        res.send("Access denied!")
+    }
 }); 
 
 //delete
-router.delete('/:id', (req,res)=>{
-   const {product_id}=req.body
-
+router.delete('/:id', middleware, (req,res)=>{
+    if (req.user.user_type==="admin")
+   {
     try{
         con.query(
-        `DELETE FROM products WHERE product_id="${product_id}"`, 
+        `DELETE FROM products WHERE product_id="${req.params.id}"`, 
         (err, result) => {
             if (err) throw err;
             res.send(result);
@@ -80,6 +88,9 @@ router.delete('/:id', (req,res)=>{
     } catch(error){
         console.log(error);
     };
+}else{
+    res.send("Access denied!")
+}
 }); 
 
 module.exports = router;
