@@ -1,0 +1,16 @@
+// DB_HOST = bq6tnnawnzbi3w5opmri-mysql.services.clever-cloud.com
+// DB_USER = u9basv9lujqxyys0
+// DB_PASS = CjZp1a92TM9FVLHeFnWu
+// DB_NAME = bq6tnnawnzbi3w5opmri
+
+DB_HOST=bo8x9mzubgukw3vav2pi-mysql.services.clever-cloud.com
+DB_USER=up4sgfgaujrgos1a
+DB_PASS=dSMkfpAU7O51Yd4CSZBS
+DB_NAME=bo8x9mzubgukw3vav2pi
+
+jwtSecret=Nobody_should_know_this
+
+MAILERHOST= smtp.ethereal.email
+MAILERUSER= margaretta.hoeger18@ethereal.email
+MAILERPASS= 7FZv8pys2jBwAKA1ws
+MAILERPORT= 587
