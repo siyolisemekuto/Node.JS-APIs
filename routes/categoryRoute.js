@@ -6,7 +6,7 @@ router.get("/", (req, res) => {
     try {
         con.query("SELECT * FROM categories", (err, result) => {
             if (err) throw err;
-            res.send(result);
+            res.json(result);
         });
     } catch (error) {
         console.log(error);
@@ -23,7 +23,7 @@ router.post('/', (req, res)=>{
         `INSERT INTO categories (name,description,thumbnail) values ("${name}","${description}","${thumbnail}") `, 
         (err, result) => {
             if (err) throw err;
-            res.send(result);
+            res.json(result);
         }
     );
     } catch(error){
@@ -39,7 +39,7 @@ router.get('/:id', (req, res)=>{
         `SELECT * FROM categories WHERE category_id = "${req.params.id}"`, 
         (err, result) => {
             if (err) throw err;
-            res.send(result);
+            res.json(result);
         }
     );
     } catch(error){
@@ -57,7 +57,7 @@ router.put('/:id', (req, res)=>{
         `UPDATE categories SET name="${name}",description="${description}",thumbnail="${thumbnail}" WHERE category_id="${req.params.id}"`, 
         (err, result) => {
             if (err) throw err;
-            res.send(result);
+            res.json(result);
         }
     );
     } catch(error){
@@ -74,7 +74,7 @@ router.delete('/:id', (req,res)=>{
         `DELETE FROM categories WHERE category_id="${category_id}"`, 
         (err, result) => {
             if (err) throw err;
-            res.send(result);
+            res.json(result);
         }
     );
     } catch(error){

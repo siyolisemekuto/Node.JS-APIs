@@ -6,7 +6,7 @@ router.get("/", (req, res) => {
     try {
         con.query("SELECT * FROM orders", (err, result) => {
             if (err) throw err;
-            res.send(result);
+            res.json(result);
         });
     } catch (error) {
         console.log(error);
@@ -23,7 +23,7 @@ router.post('/', (req, res)=>{
         `INSERT INTO orders (user_id,amount,shipping_address,order_email,order_date,order_status) values ("${user_id}","${amount}","${shipping_address}","${order_email}","${order_date}","${order_status}") `, 
         (err, result) => {
             if (err) throw err;
-            res.send(result);
+            res.json(result);
         }
     );
     } catch(error){
@@ -39,7 +39,7 @@ router.get('/:id', (req, res)=>{
         `SELECT * FROM orders WHERE order_id = "${req.params.id}"`, 
         (err, result) => {
             if (err) throw err;
-            res.send(result);
+            res.json(result);
         }
     );
     } catch(error){
@@ -57,7 +57,7 @@ router.put('/:id', (req, res)=>{
         `UPDATE products SET user_id="${user_id}",amount="${amount}",shipping_address="${shipping_address}",order_email="${order_email}",order_date="${order_date}",order_status="${order_status}"`, 
         (err, result) => {
             if (err) throw err;
-            res.send(result);
+            res.json(result);
         }
     );
     } catch(error){
@@ -74,7 +74,7 @@ router.delete('/:id', (req,res)=>{
         `DELETE FROM orders WHERE order_id="${order_id}"`, 
         (err, result) => {
             if (err) throw err;
-            res.send(result);
+            res.json(result);
         }
     );
     } catch(error){
