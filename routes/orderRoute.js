@@ -1,85 +1,36 @@
 const express = require("express");
 const router = express.Router();
-const con = require("../lib/db_connection");
+const AuthController = require("../Controllers/Auth/order")
+const AdminController = require("../Controllers/Admin/order")
 
+//see all orders
 router.get("/", (req, res) => {
-    try {
-        con.query("SELECT * FROM orders", (err, result) => {
-            if (err) throw err;
-            res.json(result);
-        });
-    } catch (error) {
-        console.log(error);
-        res.status(400).send(error)
-    }
+    return AuthController.All_orders(req.res)
 });
-
-//add a order
-router.post('/', (req, res)=>{
-    const {user_id,amount,shipping_address,order_email,order_date,order_status}= req.body
-
-    try{
-        con.query(
-        `INSERT INTO orders (user_id,amount,shipping_address,order_email,order_date,order_status) values ("${user_id}","${amount}","${shipping_address}","${order_email}","${order_date}","${order_status}") `, 
-        (err, result) => {
-            if (err) throw err;
-            res.json(result);
-        }
-    );
-    } catch(error){
-        console.log(error);
-    };
-}); 
 
 //find single order
 router.get('/:id', (req, res)=>{
-      
-    try{
-        con.query(
-        `SELECT * FROM orders WHERE order_id = "${req.params.id}"`, 
-        (err, result) => {
-            if (err) throw err;
-            res.json(result);
-        }
-    );
-    } catch(error){
-        console.log(error);
-    };
+    return AuthController.Single_order(req.res)
 }); 
 
+//add a order
+router.post('/', (req, res)=>{
+    return AuthController.Add_order(req,res)
+}); 
 
-//edit, update
+//update
 router.put('/:id', (req, res)=>{
-    const {user_id,amount,shipping_address,order_email,order_date,order_status}= req.body
-
-    try{
-        con.query(
-        `UPDATE products SET user_id="${user_id}",amount="${amount}",shipping_address="${shipping_address}",order_email="${order_email}",order_date="${order_date}",order_status="${order_status}"`, 
-        (err, result) => {
-            if (err) throw err;
-            res.json(result);
-        }
-    );
-    } catch(error){
-        console.log(error);
-    };
+    return AuthController.Update_order(req.res)
 }); 
 
 //delete
 router.delete('/:id', (req,res)=>{
-   const {order_id}=req.body
-
-    try{
-        con.query(
-        `DELETE FROM orders WHERE order_id="${order_id}"`, 
-        (err, result) => {
-            if (err) throw err;
-            res.json(result);
-        }
-    );
-    } catch(error){
-        console.log(error);
-    };
+    return AuthController.Delete_order(req.res)
 }); 
+
+//Requested orders
+router.get("/",(req,res) => {
+    return AdminController.Requested_orders(req,res)
+})
 
 module.exports = router;
