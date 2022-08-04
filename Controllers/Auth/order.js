@@ -1,7 +1,8 @@
 //useful for cart
 
 //dependencies
-const con = require("../lib/db_connection");
+const con = require("../../lib/db_connection");
+require ('dotenv').config;
 
 //see all orders
 async function All_orders(req,res) {

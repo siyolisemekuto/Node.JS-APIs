@@ -1,7 +1,6 @@
 const express = require("express");
 const router = express.Router();
 const con = require("../lib/db_connection");
-const middleware = require("../middleware/auth");
 
 
 
@@ -18,7 +17,7 @@ router.get("/", (req, res) => {
 });
 
 //add a product
-router.post('/', middleware, (req, res)=>{
+router.post('/', (req, res)=>{
     const {sku,name,price,weight,descriptions,thumbnail,image,category,create_date,stock}= req.body
     if (req.user.user_type==="admin")
 
@@ -55,7 +54,7 @@ router.get('/:id', (req, res)=>{
 
 
 //edit, update
-router.put('/:id', middleware, (req, res)=>{
+router.put('/:id', (req, res)=>{
     const {sku,name,price,weight,descriptions,thumbnail,image,category,create_date,stock}= req.body
     if (req.user.user_type==="admin")
    {try{
@@ -75,7 +74,7 @@ router.put('/:id', middleware, (req, res)=>{
 }); 
 
 //delete
-router.delete('/:id', middleware, (req,res)=>{
+router.delete('/:id', (req,res)=>{
     if (req.user.user_type==="admin")
    {
     try{
