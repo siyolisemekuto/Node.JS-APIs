@@ -12,7 +12,7 @@ app.use(bodyParser.urlencoded({extended:false}));
 
 app.use(cors()); // Dont let local development give errors
 
-const con = require ("./lib/db_connection")
+// const con = require ("./lib/db_connection")
 const userRoute = require("./routes/userRoute")
 const productRoute = require("./routes/productRoute")
 const categoryRoute = require("./routes/categoryRoute.js")

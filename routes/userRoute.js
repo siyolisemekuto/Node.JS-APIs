@@ -3,7 +3,7 @@ const express = require("express");
 const router = express.Router();
 const AuthController = require("../Controllers/Auth/users")
 const AdminController = require("../Controllers/Admin/users")
-const con = require("../lib/db_connection")
+// const con = require("../../lib/db_connection");
 
 // Login
 router.post("/login", (req, res) => {

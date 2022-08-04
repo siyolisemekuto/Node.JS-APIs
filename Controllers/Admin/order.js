@@ -1,5 +1,5 @@
 //dependencies
-const con = require("../lib/db_connection");
+const con = require("../../lib/db_connection");
 
 
 //see orders from users
